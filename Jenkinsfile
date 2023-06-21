@@ -106,15 +106,13 @@ pipeline {
             }
         }
         post {
-                    always{
-                        archiveArtifacts artifacts: 'target/*.war', onlyIfSuccessful: true
-
-                        emailext to: "manishbhagat280@gmail.com",
-                        subject: "jenkins build: ${currentBuild.currentResult}: ${env.JOB_NAME}",
-                        body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
-                        attachmentsPattern: '*.war'
-
-                    }
+             always {
+                archiveArtifacts artifacts: 'target/*.war', onlyIfSuccessful: true
+                emailext to: "manishbhagat280@gmail.com",
+                subject: "jenkins build: ${currentBuild.currentResult}: ${env.JOB_NAME}",
+                body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
+                attachmentsPattern: '*.war'
+             }
         }
 
     }
