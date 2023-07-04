@@ -105,17 +105,18 @@ pipeline {
                 sh "helm upgrade --install --force vprofile-stack helm/vprofilecharts --set appimage=$registry:$BUILD_NUMBER --namespace prod"
             }
         }
-        post {
-             always {
-                archiveArtifacts artifacts: 'target/*.war', onlyIfSuccessful: true
-                emailext to: "manishbhagat280@gmail.com",
-                subject: "jenkins build: ${currentBuild.currentResult}: ${env.JOB_NAME}",
-                body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
-                attachmentsPattern: '*.war'
-             }
-        }
 
     }
+
+    post {
+                 always {
+                    archiveArtifacts artifacts: 'target/*.war', onlyIfSuccessful: true
+                    emailext to: "manishbhagat280@gmail.com",
+                    subject: "jenkins build: ${currentBuild.currentResult}: ${env.JOB_NAME}",
+                    body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
+                    attachmentsPattern: '*.war'
+                 }
+            }
 
 
 }
